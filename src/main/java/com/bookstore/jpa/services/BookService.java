@@ -9,6 +9,9 @@ import com.bookstore.jpa.repositories.PublisherRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,13 +22,16 @@ public class BookService {
     private final AuthorRepository authorRepository;
     private final PublisherRepository publisherRepository;
 
+    public List<BookModel> Allbooks(){
+        return bookRepository.findAll();
+    }
 
     @Transactional //Garante um RollBack em caso de erros, por haver varias transações com a base da dados.
     public BookModel saveBook(BookRecordDto bookRecordDto){
         BookModel book = new BookModel();
         book.setTitle(bookRecordDto.title());
         book.setPublisher(publisherRepository.findById(bookRecordDto.publisherId()).get());
-        book.setAuthors(authorRepository.findAllById(bookRecordDto.auhtorIds()).stream().collect(Collectors.toSet()));
+        book.setAuthors(authorRepository.findAllById(bookRecordDto.authorIds()).stream().collect(Collectors.toSet()));
 
         ReviewModel reviewModel = new ReviewModel();
         reviewModel.setComment(bookRecordDto.reviewComment());
@@ -33,5 +39,10 @@ public class BookService {
         book.setReview(reviewModel);
 
         return bookRepository.save(book);
+    }
+
+    @Transactional
+    public void deleteBook(UUID id){
+        this.bookRepository.deleteById(id);
     }
 }

@@ -5,6 +5,6 @@ import java.util.UUID;
 
 public record BookRecordDto(String title,
                             UUID publisherId,
-                            Set<UUID> auhtorIds,
+                            Set<UUID> authorIds,
                             String reviewComment){
 }

@@ -4,7 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/bookstore-jpa
     password: '242824'
   application:
-    name: api-bookstore
+    name: jpa
   jpa:
     properties:
       hibernate:
