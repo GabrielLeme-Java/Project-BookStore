@@ -24,5 +24,5 @@ public class AuthorModel {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //Apenas permissão de escrita e não de leitura.
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY) //Para não precisar buscar a coleção de livros e cada author.
-    private Set<BookModel> books =new HashSet<>();
+    private Set<BookModel> books = new HashSet<>();
 }

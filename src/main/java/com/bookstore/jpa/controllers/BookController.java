@@ -1,7 +1,7 @@
 package com.bookstore.jpa.controllers;
 
-import com.bookstore.jpa.dtos.BookRecordDto;
-import com.bookstore.jpa.models.BookModel;
+import com.bookstore.jpa.dtos.BookRequestDto;
+import com.bookstore.jpa.dtos.BookResponseDto;
 import com.bookstore.jpa.services.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,13 +19,13 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
-    public ResponseEntity<BookModel> save(@RequestBody BookRecordDto bookRecordDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.saveBook(bookRecordDto));
+    public ResponseEntity<BookResponseDto> save(@RequestBody BookRequestDto bookRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.saveBook(bookRequestDto));
     }
 
     @GetMapping
-    public ResponseEntity<List<BookModel>> findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(bookService.Allbooks());
+    public ResponseEntity<List<BookResponseDto>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.allBooks());
     }
 
     @DeleteMapping("/{id}")
